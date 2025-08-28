@@ -35,12 +35,15 @@
                 console.log('response: ', response);
                 if (response.customerResponse && response.customerResponse.success) {
                     const customerId = response.customerResponse.data.id;
-                    window.location.href = 'https://www.google.com/'
                 }
 
                 if (response.submitResponse && response.submitResponse.success) {
                     const paymentTypeId = response.submitResponse.data.id;
-                    window.location.href = 'https://blank.page/'
+                    if (params.get('fromApp') === '1') {
+                        window.location.href = 'myapp://webview'; // Replace with your app's URL scheme
+                    } else {
+                        window.location.href = 'https://blank.page/'
+                    }
                 }
             }
         }).catch((error) => {
