@@ -35,11 +35,12 @@
                 if (response.submitResponse && response.customerResponse) {
                     if (response.customerResponse.success) {
                         const customerId = response.customerResponse.data.id;
-                        window.location.href = 'https://blank.page/'
+                        window.location.href = 'https://www.google.com/'
                     }
 
                     if (response.submitResponse.success) {
                         const paymentTypeId = response.submitResponse.data.id;
+                        window.location.href = 'https://blank.page/'
                     }
 
                 }
