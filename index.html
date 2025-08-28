@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Pay</title>
+    <script>
+        Promise.all([
+            customElements.whenDefined("unzer-payment"),
+            customElements.whenDefined("unzer-checkout"),
+            customElements.whenDefined("unzer-google-pay"),
+        ]).then(() => {
+            const unzerPayment = document.getElementById('unzer-payment');
+            const paymentDataRequestObject = {
+                gatewayMerchantId: 'REPLACE_WITH_YOUR_UNZER_CHANNEL_ID',
+                allowedCardNetworks: ['MASTERCARD', 'VISA'],
+                buttonOptions: {
+                    buttonColor: 'black',
+                },
+                merchantInfo: {
+                    merchantId: 'REPLACE_WITH_YOUR_GOOGLE_PAY_MERCHANT_ID',
+                    merchantName: 'REPLACE_WITH_YOUR_MERCHANT_NAME',
+                },
+                transactionInfo: {
+                    countryCode: 'DE',  // Update for your country
+                    currencyCode: 'EUR', // Update for your currency
+                    totalPrice: '19.99', // Set your transaction amount
+                }
+            }
+
+            unzerPayment.setGooglePayData(paymentDataRequestObject);
+            const unzerCheckout = document.getElementById('unzer-checkout');
+            unzerCheckout.onPaymentSubmit = (response) => {
+                if (response.submitResponse && response.customerResponse) {
+                    if (response.customerResponse.success) {
+                        const customerId = response.customerResponse.data.id;
+                    }
+
+                    if (response.submitResponse.success) {
+                        const paymentTypeId = response.submitResponse.data.id;
+                    }
+
+                }
+            }
+        }).catch((error) => {
+            // Handle any error that might occur during the loading process and initialization
+            console.error("Payment initialization error:", error);
+            document.getElementById('payment-error').textContent = "There was a problem loading the payment system. Please try again later.";
+            document.getElementById('payment-error').style.display = "block";
+        });
+
+    </script>
+    <script type="module" src="https://static.test.unzer.com/v2/ui-components/index.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        main {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        #payment-error {
+            color: #d32f2f;
+            background-color: #ffebee;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div id="payment-error" role="alert" aria-live="assertive"></div>
+        <unzer-payment id="unzer-payment" publicKey="s-pub-2a10MftFUVSmPz47DA0dZvgmeFEqUOM9" locale="de-DE"
+            aria-labelledby="payment-heading">
+            <h2 id="payment-heading" class="sr-only">Google Pay Payment</h2>
+            <unzer-google-pay></unzer-google-pay>
+        </unzer-payment>
+        <unzer-checkout id='unzer-checkout'></unzer-checkout>
+    </main>
+</body>
+
+</html>
