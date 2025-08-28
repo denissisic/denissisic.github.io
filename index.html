@@ -35,6 +35,7 @@
                 if (response.submitResponse && response.customerResponse) {
                     if (response.customerResponse.success) {
                         const customerId = response.customerResponse.data.id;
+                        window.location.href = 'https://blank.page/'
                     }
 
                     if (response.submitResponse.success) {
