@@ -40,8 +40,10 @@
                 if (response.submitResponse && response.submitResponse.success) {
                     const paymentTypeId = response.submitResponse.data.id;
                     if (params.get('fromApp') === '1') {
-                        window.location.href = 'myapp://webview'; // Replace with your app's URL scheme
+                        console.log('redirecting to app');
+                        window.location.href = 'myapp://(tabs)/webview'; // Replace with your app's URL scheme
                     } else {
+                        console.log('redirecting to web'); // Add this line
                         window.location.href = 'https://blank.page/'
                     }
                 }
