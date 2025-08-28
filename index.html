@@ -32,6 +32,7 @@
             unzerPayment.setGooglePayData(paymentDataRequestObject);
             const unzerCheckout = document.getElementById('unzer-checkout');
             unzerCheckout.onPaymentSubmit = (response) => {
+                console.log('response: ', response);
                 if (response.submitResponse && response.customerResponse) {
                     if (response.customerResponse.success) {
                         const customerId = response.customerResponse.data.id;
