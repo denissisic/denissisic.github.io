@@ -33,17 +33,14 @@
             const unzerCheckout = document.getElementById('unzer-checkout');
             unzerCheckout.onPaymentSubmit = (response) => {
                 console.log('response: ', response);
-                if (response.submitResponse && response.customerResponse) {
-                    if (response.customerResponse.success) {
-                        const customerId = response.customerResponse.data.id;
-                        window.location.href = 'https://www.google.com/'
-                    }
+                if (response.customerResponse && response.customerResponse.success) {
+                    const customerId = response.customerResponse.data.id;
+                    window.location.href = 'https://www.google.com/'
+                }
 
-                    if (response.submitResponse.success) {
-                        const paymentTypeId = response.submitResponse.data.id;
-                        window.location.href = 'https://blank.page/'
-                    }
-
+                if (response.submitResponse && response.submitResponse.success) {
+                    const paymentTypeId = response.submitResponse.data.id;
+                    window.location.href = 'https://blank.page/'
                 }
             }
         }).catch((error) => {
