@@ -40,13 +40,7 @@
                 if (response.submitResponse && response.submitResponse.success) {
                     const paymentTypeId = response.submitResponse.data.id;
                     const params = new URLSearchParams(window.location.search);
-                    if (params.get('fromApp') === '1') {
-                        console.log('redirecting to app');
-                        window.location.href = 'myapp://'; // Replace with your app's URL scheme
-                    } else {
-                        console.log('redirecting to web'); // Add this line
-                        window.location.href = 'https://blank.page/'
-                    }
+                    window.location.href = 'myapp://';
                 }
             }
         }).catch((error) => {
